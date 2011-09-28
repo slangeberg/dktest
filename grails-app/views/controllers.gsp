@@ -1,6 +1,3 @@
-<%@page import="dktest.Application"%>
-<%@page import="dktest.Page"%>
-
 <html>
     <head>
         <title>Welcome to DK</title>
@@ -53,45 +50,48 @@
         }
         </style>
     </head>
-    <%
-		def app = Application.get(5)
-		def pages = app.pages
-	%>
     <body>
         <div id="nav">
             <div class="homePagePanel">
                 <div class="panelTop"></div>
                 <div class="panelBody">
-                	
-                    <g:link controller="page" action="show" id="${pages[0].id}" ><h1>${pages[0].name}</h1></g:link>
+                    <h1>Application Status</h1>
                     <ul>
-                        <li>subpage tbd...</li>
+                        <li>App version: <g:meta name="app.version"></g:meta></li>
+                        <li>Grails version: <g:meta name="app.grails.version"></g:meta></li>
+                        <li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
+                        <li>JVM version: ${System.getProperty('java.version')}</li>
+                        <li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
+                        <li>Domains: ${grailsApplication.domainClasses.size()}</li>
+                        <li>Services: ${grailsApplication.serviceClasses.size()}</li>
+                        <li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
                     </ul>
-                    
-<%--                        <g:set var="pluginManager"--%>
-<%--                               value="${applicationContext.getBean('pluginManager')}"></g:set>--%>
+                    <h1>Installed Plugins</h1>
+                    <ul>
+                        <g:set var="pluginManager"
+                               value="${applicationContext.getBean('pluginManager')}"></g:set>
 
-<%--                        <g:each var="plugin" in="${pluginManager.allPlugins}">--%>
-<%--                            <li>${plugin.name} - ${plugin.version}</li>--%>
-<%--                        </g:each>--%>
+                        <g:each var="plugin" in="${pluginManager.allPlugins}">
+                            <li>${plugin.name} - ${plugin.version}</li>
+                        </g:each>
 
-                 
+                    </ul>
                 </div>
                 <div class="panelBtm"></div>
             </div>
         </div>
         <div id="pageBody">
             <h1>Welcome to DK</h1>
+            <p>Below is a list of controllers that are currently deployed in this application,
+            click on each to execute its default action:</p>
 
             <div id="controllerList" class="dialog">
-<%--                <h2>Available Controllers:</h2>--%>
-<%--                <ul>--%>
-<%--                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">--%>
-<%--                        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>--%>
-<%--                    </g:each>--%>
-<%--                </ul>--%>
-				<p/>
-				<p><g:link  url="controllers.gsp">Controllers List</g:link></p>
+                <h2>Available Controllers:</h2>
+                <ul>
+                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+                        <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+                    </g:each>
+                </ul>
             </div>
         </div>
     </body>

@@ -1,4 +1,4 @@
 target
 
-web-app/WEB-INF/classes
+web-app/WEB-INF/classes/*
 

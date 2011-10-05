@@ -4,7 +4,11 @@ import dktest.Page;
 import dktest.Portlet;
 import dktest.Role;
 import dktest.User;
+import dktest.Requestmap
+
 import grails.util.GrailsUtil;
+
+import grails.plugins.springsecurity.*
 
 class BootStrap {
 
@@ -23,6 +27,21 @@ class BootStrap {
 			def pacman = new Application( name:"Pacman", shortUrl: "/pacman" )
 			pacman.addToPages( pacmanHome )
 			pacman.save( failOnError:true, flush:true )
+			
+		}
+			
+		//
+		// Add Security
+		//
+			
+		if ( !Requestmap.count() ) {
+			new Requestmap(url: '/login/*', configAttribute: 'IS_AUTHENTICATED_ANONYMOUSLY').save()
+			new Requestmap(url: '/logout/*', configAttribute: 'IS_AUTHENTICATED_ANONYMOUSLY').save()
+		//	new Requestmap(url: '/*/create', configAttribute: 'ROLE_USER,IS_AUTHENTICATED_FULLY').save(failOnError:true, flush:true)
+		//	new Requestmap(url: '/person/*', configAttribute: 'IS_AUTHENTICATED_REMEMBERED').save()
+		//	new Requestmap(url: '/post/followAjax', configAttribute: 'ROLE_USER').save()
+		//	new Requestmap(url: '/post/addPostAjax', configAttribute: 'ROLE_USER,IS_AUTHENTICATED_FULLY').save()
+			new Requestmap(url: '/**', configAttribute: 'ROLE_USER').save(failOnError:true, flush:true)
 		}
 	}
 

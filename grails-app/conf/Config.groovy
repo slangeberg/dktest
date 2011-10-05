@@ -1,3 +1,6 @@
+import grails.plugins.springsecurity.SecurityConfigType
+
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -54,7 +57,7 @@ grails.exceptionresolver.params.exclude = ['password']
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://ugotspots.com"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -88,3 +91,10 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'dktest.SecUser'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'dktest.SecUserSecRole'
+grails.plugins.springsecurity.authority.className = 'dktest.SecRole'
+grails.plugins.springsecurity.requestMap.className = 'dktest.Requestmap'
+grails.plugins.springsecurity.securityConfigType = 'Requestmap'
